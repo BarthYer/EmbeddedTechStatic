@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EmbeddedTech Blog — Projects</title>
+  <meta name="description" content="Embedded systems projects: Yocto, Zephyr, Embedded Linux." />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <!-- Prism for syntax highlighting -->
+  <link rel="stylesheet" href="https://unpkg.com/prismjs@1.29.0/themes/prism.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container navbar">
+    <div class="brand"><a href="./index.html">EmbeddedTech Blog</a></div>
+    <nav class="nav-links">
+      <a href="./index.html">Home</a>
+      <a href="./projects.html">Projects</a>
+      <a href="./search.html">Search</a>
+      <a href="./about.html">About</a>
+    </nav>
+    <div class="flex">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☀︎/☾</button>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<h1 class="m0">Projects</h1>
+<p class="small" style="color:var(--muted)">Browse by category.</p>
+
+<div class="section-title"><h2>Categories</h2></div>
+<div class="grid">
+  <a class="card" href="#yocto"><h3 class="m0">Yocto</h3><p class="small">BSPs, recipes, layers, CI</p></a>
+  <a class="card" href="#zephyr"><h3 class="m0">Zephyr</h3><p class="small">RTOS, drivers, BLE</p></a>
+  <a class="card" href="#embedded-linux"><h3 class="m0">Embedded Linux</h3><p class="small">Systemd, boot, device tree</p></a>
+</div>
+
+<div id="yocto" class="section-title"><h2>Yocto</h2></div>
+<div class="grid">
+  <article class="card">
+    <a href="./posts/2025-01-10-yocto-bsp-from-scratch.html"><h3 class="post-title">Yocto BSP from scratch</h3></a>
+    <div class="meta small">Jan 10, 2025</div>
+  </article>
+</div>
+
+<div id="zephyr" class="section-title"><h2>Zephyr</h2></div>
+<div class="grid">
+  <article class="card">
+    <a href="./posts/2025-03-02-zephyr-ble-peripheral.html"><h3 class="post-title">Zephyr BLE peripheral</h3></a>
+    <div class="meta small">Mar 2, 2025</div>
+  </article>
+</div>
+
+<div id="embedded-linux" class="section-title"><h2>Embedded Linux</h2></div>
+<div class="grid">
+  <article class="card">
+    <a href="./posts/2025-04-18-linux-boot-time.html"><h3 class="post-title">Cut Linux boot time</h3></a>
+    <div class="meta small">Apr 18, 2025</div>
+  </article>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <h4 class="m0">EmbeddedTech Blog</h4>
+        <p class="small">Notes and projects on Yocto, Zephyr, and Embedded Linux.</p>
+      </div>
+      <div>
+        <h5 class="m0">Links</h5>
+        <ul class="small">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./projects.html">Projects</a></li>
+          <li><a href="./about.html">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="m0">Subscribe</h5>
+        <p class="small"><a href="#" aria-disabled="true">RSS (coming soon)</a></p>
+      </div>
+      <div>
+        <h5 class="m0">Social</h5>
+        <p class="small"><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
+    </div>
+    <p class="small mt2">© 2025 EmbeddedTech. All rights reserved.</p>
+  </div>
+</footer>
+<script src="./assets/js/main.js"></script>
+<script src="https://unpkg.com/prismjs@1.29.0/prism.js"></script>
+</body>
+</html>

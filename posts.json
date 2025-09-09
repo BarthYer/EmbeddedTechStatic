@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Yocto BSP from scratch",
+    "description": "Create a minimal BSP layer and image with Yocto Project.",
+    "date": "2025-01-10",
+    "categories": [
+      "Yocto"
+    ],
+    "url": "./posts/2025-01-10-yocto-bsp-from-scratch.html"
+  },
+  {
+    "title": "Zephyr BLE peripheral",
+    "description": "Build and test a BLE peripheral with Zephyr RTOS.",
+    "date": "2025-03-02",
+    "categories": [
+      "Zephyr"
+    ],
+    "url": "./posts/2025-03-02-zephyr-ble-peripheral.html"
+  },
+  {
+    "title": "Cut Linux boot time",
+    "description": "Tips to reduce boot time on Embedded Linux.",
+    "date": "2025-04-18",
+    "categories": [
+      "Embedded Linux"
+    ],
+    "url": "./posts/2025-04-18-linux-boot-time.html"
+  }
+]
