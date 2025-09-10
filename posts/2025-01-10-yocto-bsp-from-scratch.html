@@ -34,8 +34,10 @@
     </header>
     <div class="content">
       <h2>Introduction</h2>
-      <p>This tutorial explains, step by step, how to add a custom Device Tree (DTS) file to the Linux kernel and make sure it is used during boot.</p>
-      <p>The <strong>Device Tree</strong> is a data structure that describes the hardware of a system to the Linux kernel...</p>
+      <p>This tutorial explains, step by step, how to add a custom Device Tree (DTS) file to the Linux kernel and make sure it is used during boot.  
+  The <strong>Device Tree</strong> is a data structure that describes the hardware of a system to the Linux kernel. It allows the kernel to be built independently of the specific hardware configuration. By customizing the Device Tree, you can define additional peripherals, configure GPIOs, or enable new hardware features without modifying the kernel source code directly.  
+  In this tutorial, we will use the <strong>STM32MP257F-DK</strong> development board as an example, but the steps are applicable to other STM32MP2 boards with small adjustments.  
+      </p>
 
       <h2>Prerequisites</h2>
       <ul>
@@ -48,8 +50,20 @@
       <pre><code class="language-bash">bitbake-layers create-layer ../../layers-external/meta-extension-stm32mp2
 bitbake-layers add-layer ../../layers-external/meta-extension-stm32mp2
 bitbake-layers show-layers</code></pre>
-
+      <pre><code class="language-bash">
+         layer                 path                                                                    priority
+   ========================================================================================================
+   core                  /home/user/yocto/poky/meta               5
+   yocto                 /home/user/yocto/poky/meta-poky          5
+   yoctobsp              /home/user/yocto/poky/meta-yocto-bsp     5
+   openembedded-layer    /home/user/yocto/meta-openembedded/meta-oe       5
+   meta-python           /home/user/yocto/meta-openembedded/meta-python   5
+   stm-st-stm32mp        /home/user/yocto/meta-st-stm32mp         6
+   meta-extension-stm32mp2  /home/user/yocto/layers-external/meta-extension-stm32mp2  6</code></pre>
+      
       <h2>Step 2: Create the Custom Device Tree</h2>
+      <p>Now we will create a new Device Tree file that describes additional hardware (for example, LEDs connected to GPIOs).</p>  
+      <p>Inside your custom layer, create the kernel recipe folder and a file for your Device Tree </p>
       <pre><code class="language-bash">mkdir -p meta-extension-stm32mp2/recipes-kernel/linux/files/
 cd meta-extension-stm32mp2/recipes-kernel/linux/files
 touch devicetree-extended.dts</code></pre>
@@ -76,8 +90,22 @@ touch devicetree-extended.dts</code></pre>
          };
      };
  };</code></pre>
+      <p> <strong>Explanation of the code:</strong></p>
+      <ul>
+        <li>include <strong>stm32mp257f-dk.dts"</strong> ensures we inherit the default configuration of the board.</li>
+        <li>The <strong>gpio-leds</strong> block describes two LEDs:</li>
+        <p> <strong>test</strong> → mapped to GPIOC7</p>
+        <p> <strong>green</strong> → mapped to GPIOA1</p>
+        <li>Each LED is configured as "off" by default and with no trigger assigned (you can control them manually later).</li>
+      </ul>   
 
+<p>This demonstrates how you can extend the existing Device Tree without rewriting everything.</p>
       <h2>Step 3: Create the Kernel Recipe Extension (.bbappend)</h2>
+      <p>In Yocto, <strong>.bbappend</strong> files allow you to extend existing recipes without modifying them directly.</p>  
+      <ul>
+      <li>Go back to the <strong>recipes-kernel/linux/</strong> directory and create the <strong>.bbappend</strong> file: </li>
+      </ul>
+1. 
       <pre><code class="language-bitbake">FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 SRC_URI += "file://devicetree-extended.dts"
 
@@ -85,14 +113,36 @@ do_configure:append() {
    cp ${WORKDIR}/devicetree-extended.dts ${S}/arch/arm64/boot/dts/st
    echo "dtb-\$(CONFIG_ARCH_STM32) += devicetree-extended.dtb " >> ${S}/arch/arm64/boot/dts/st/Makefile
 }</code></pre>
-
+      <p><strong>Explanation:</strong></p>
+      <ul>
+        <li><strong>FILESEXTRAPATHS</strong> tells Yocto where to look for extra files (your <strong>.dts</strong>).</li>
+        <li><strong>SRC_URI</strong> adds your DTS file to the sources used during the kernel build.</li>
+        <li><strong>do_configure:append()</strong> copies your custom DTS into the correct kernel directory and updates the kernel Makefile to build your new `devicetree-extended.dtb`.</li>
+      </ul>
       <h2>Step 4: Update local.conf</h2>
+      <p>To make sure your new Device Tree is included in the kernel build, edit <strong>local.conf</strong> and append your DTB:</p>
       <pre><code class="language-bash">KERNEL_DEVICETREE += " st/devicetree-extended.dtb "</code></pre>
-
+      <p>This ensures that the new <strong>devicetree-extended.dtb</strong> will be compiled and packaged into the final image.</p>
       <h2>Step 5: Build the Image</h2>
+      <p>You are now ready to build the image with your modifications:</p>
       <pre><code class="language-bash">bitbake core-image-minimal</code></pre>
 
       <h2>Step 6: Boot with the Custom Device Tree</h2>
+      <ul>
+        <li>1. Flash the generated image to your STM32MP257F-DK.</li>
+        <li>2. Interrupt U-Boot at startup by pressing any key.</li>
+        <li>3. Display the environment variables:</li>
+      </ul>
+       <pre><code class="language-bash">
+           STM32MP> printenv
+
+           You should see something like:  
+           fdtfile=stm32mp257f-dk.dtb
+           kernel_addr_r=0x8a000000
+           fdt_addr_r=0x90000000
+       </code></pre>
+      
+     
       <pre><code class="language-bash">STM32MP> setenv fdtfile devicetree-extended.dtb
 STM32MP> saveenv</code></pre>
 
@@ -101,7 +151,11 @@ STM32MP> saveenv</code></pre>
 
       <p>Expected output:</p>
       <pre><code>blue:heartbeat  green  test</code></pre>
-
+      <p>`blue:heartbeat` is the default LED.</p>  
+      <p>`green` and `test` are the two new LEDs you added in your Device Tree.</p>
+      
+      <p>At this point, you have successfully integrated and tested your custom Device Tree! 🎉</p>
+      
       <h2>References</h2>
       <ul>
         <li><a href="https://docs.yoctoproject.org/">Yocto Project Documentation</a></li>
@@ -116,8 +170,8 @@ STM32MP> saveenv</code></pre>
   <div class="container">
     <div class="grid">
       <div>
-        <h4 class="m0">EmbeddedTech Blog</h4>
-        <p class="small">Notes and projects on Yocto, Zephyr, and Embedded Linux.</p>
+        <h4 class="m0">EmbeddedTech</h4>
+        <p class="small">Resources and tutorials on embedded systems, Yocto, Zephyr and embedded Linux.</p>
       </div>
       <div>
         <h5 class="m0">Links</h5>
@@ -133,7 +187,8 @@ STM32MP> saveenv</code></pre>
       </div>
       <div>
         <h5 class="m0">Social</h5>
-        <p class="small"><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></p>
+        <p class="small"><a href="https://github.com/BarthYer" target="_blank" rel="noopener">GitHub</a></p>
+        <p class="small"><a href="www.linkedin.com/in/barthélémy-yerbanga-40a973161" target="_blank" rel="noopener">Linkedin</a></p>
       </div>
     </div>
     <p class="small mt2">© 2025 EmbeddedTech. All rights reserved.</p>
