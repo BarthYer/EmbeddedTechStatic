@@ -97,6 +97,14 @@ header.site-header {
 
 .section-title { display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin: 2rem 0 1rem; }
 .section-title h2 { margin: 0; }
+.section-title-home {
+  display: flex;
+  justify-content: center;   /* centre horizontalement */
+  align-items: center;       /* centre verticalement */
+  text-align: center;        /* centre le texte à l’intérieur */
+  min-height: 40vh;          /* espace vertical (ajuste selon ton design) */
+  padding: 2rem;
+}
 
 footer.site-footer {
   margin-top: auto;          /* ✅ pousse le footer en bas */
