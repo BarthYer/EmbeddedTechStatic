@@ -103,7 +103,7 @@ header.site-header {
   justify-content: center;   /* centre horizontalement */
   text-align: center;
   padding: 2rem;
-  margin-top: 2rem;          /* espace entre la section du haut et celle-ci */
+  margin-top: auto;          /* espace entre la section du haut et celle-ci */
 }
 
 
