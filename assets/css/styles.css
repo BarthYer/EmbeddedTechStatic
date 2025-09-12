@@ -1,6 +1,6 @@
 /* Minimal, modern, responsive blog - light/dark toggleable */
 :root {
-  --bg: #ffffff;
+ --bg: #ffffff;
   --fg: #111827;
   --muted: #6b7280;
   --card: #f8fafc;
@@ -8,8 +8,9 @@
   --border: #e5e7eb;
 }
 
+
 [data-theme="dark"] {
-  --bg: #0b1220;
+   --bg: #0b1220;
   --fg: #e5e7eb;
   --muted: #9ca3af;
   --card: #111827;
