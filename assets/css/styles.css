@@ -9,12 +9,12 @@
 }
 
 [data-theme="dark"] {
-  --bg: #ffffff;
-  --fg: #111827;
-  --muted: #6b7280;
-  --card: #f8fafc;
-  --accent: #2563eb;
-  --border: #e5e7eb;
+  --bg: #0b1220;
+  --fg: #e5e7eb;
+  --muted: #9ca3af;
+  --card: #111827;
+  --accent: #38bdf8;
+  --border: #1f2937;
 }
 
 * { box-sizing: border-box; }
