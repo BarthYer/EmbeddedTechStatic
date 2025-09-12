@@ -1,12 +1,11 @@
 /* Minimal, modern, responsive blog - light/dark toggleable */
 :root {
-  --bg: #2B2B2B;     /* fond sombre */
-  --fg: #f5f5f5;     /* texte clair pour lisibilité */
-  --muted: #9ca3af;  /* texte secondaire gris */
-  --card: #3a3a3a;   /* cartes légèrement plus claires */
-  --accent: #38bdf8; /* bleu cyan pour liens/boutons */
-  --border: #444444; /* séparateurs discrets */
-
+  --bg: #ffffff;
+  --fg: #111827;
+  --muted: #6b7280;
+  --card: #f8fafc;
+  --accent: #2563eb;
+  --border: #e5e7eb;
 }
 
 [data-theme="dark"] {
