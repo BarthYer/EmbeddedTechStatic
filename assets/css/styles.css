@@ -101,12 +101,11 @@ header.site-header {
 .section-title-home {
   display: flex;
   justify-content: center;   /* centre horizontalement */
-  align-items: center;       /* centre verticalement */
-  text-align: center;        /* centre le texte à l’intérieur */
-  min-height: 40vh;          /* espace vertical (ajuste selon ton design) */
+  text-align: center;
   padding: 2rem;
-  margin-top:1rem;
+  margin-top: 2rem;          /* espace entre la section du haut et celle-ci */
 }
+
 
 footer.site-footer {
   margin-top: auto;          /* ✅ pousse le footer en bas */
