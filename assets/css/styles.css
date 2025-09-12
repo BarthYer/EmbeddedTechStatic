@@ -105,6 +105,7 @@ header.site-header {
   text-align: center;        /* centre le texte à l’intérieur */
   min-height: 40vh;          /* espace vertical (ajuste selon ton design) */
   padding: 2rem;
+  margin-top:1rem;
 }
 
 footer.site-footer {
